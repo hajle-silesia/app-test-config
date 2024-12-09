@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  file-content-monitor:
+  - apiVersion: v2
+    appVersion: 1.28.6
+    created: "2024-12-09T21:33:41.04480179Z"
+    description: A Helm chart for Kubernetes
+    digest: e00416549942e42068fa8e13228c49772ccbc6387ee3df1c5f88ede009c23239
+    name: file-content-monitor
+    type: application
+    urls:
+    - https://github.com/hajle-silesia/app-test-config/releases/download/file-content-monitor-0.1.1/file-content-monitor-0.1.1.tgz
+    version: 0.1.1
+generated: "2024-12-09T21:33:41.044831486Z"
