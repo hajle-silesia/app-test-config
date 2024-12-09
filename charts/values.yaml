@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: mtweeman/hajle-silesia_file-content-monitor
   pullPolicy: IfNotPresent
-  tag: 1.28.4
+  tag: 1.28.5
 imagePullSecrets: []
 nameOverride: ''
 fullnameOverride: ''
