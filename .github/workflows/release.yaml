@@ -37,4 +37,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PUSH_TOKEN }}
           HELM_REGISTRY_USERNAME: ${{ secrets.DOCKER_USER }}
-          HELM_REGISTRY_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
+          HELM_REGISTRY_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
