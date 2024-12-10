@@ -27,14 +27,13 @@ jobs:
         with:
           node-version: 22.12.0
       - name: Install dependencies
-        run: npm install -D @pubgcorp/semantic-release-helm
+        run: npm install -D semantic-release-helm
       - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
         run: npm audit signatures
       - name: Set up semantic-release
         run: |
-          echo "${HELM_REGISTRY_USERNAME}"
           npx semantic-release@24.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.PUSH_TOKEN }}
-          HELM_REGISTRY_USERNAME: ${{ secrets.DOCKER_USER }}
-          HELM_REGISTRY_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          REGISTRY_USERNAME: ${{ secrets.DOCKER_USER }}
+          REGISTRY_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
