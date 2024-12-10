@@ -43,7 +43,7 @@ jobs:
             latest=false
       - run: |
           helm package ${{ inputs.chart-dir }} \
-            --version ${{ steps.meta.output.version }}
+            --version ${{ steps.meta.outputs.version }}
           helm registry login ${{ inputs.docker-hub-registry }} \
             --username ${{ secrets.docker-hub-username }} \
             --password ${{ secrets.docker-hub-token }}
