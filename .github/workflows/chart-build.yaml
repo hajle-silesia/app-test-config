@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build:
+    name: Chart build
+    uses: hajle-silesia/app-test-config/.github/workflows/shared-chart-build.yaml@master
+    with:
+      chart-dir:
+        charts/app-test
+    secrets:
+      docker-hub-username: ${{ secrets.DOCKER_USER }}
+      docker-hub-token: ${{ secrets.DOCKER_PASSWORD }}
