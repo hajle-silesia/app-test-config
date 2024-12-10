@@ -7,29 +7,29 @@ on:
 
 jobs:
   release:
-    # depending on default permission settings for your org (contents being read-only or read-write for workloads), you will have to add permissions
-    # see: https://docs.github.com/en/actions/security-guides/automatic-token-authentication#modifying-the-permissions-for-the-github_token
-    permissions:
-      contents: write
+    name: Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Configure Git
+          # Prevent semantic-release from making changes by "github-actions" user as it doesn't trigger other workflows
+          # Source: https://semantic-release.gitbook.io/semantic-release/recipes/ci-configurations/github-actions#pushing-package.json-changes-to-your-repository
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+      - name: Set up semantic-release
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: Install Helm
-        uses: azure/setup-helm@v4
+          npx semantic-release@24.2.0
         env:
-          GITHUB_TOKEN: "${{ secrets.PUSH_TOKEN }}"
-
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.6.0
-        env:
-          CR_TOKEN: "${{ secrets.PUSH_TOKEN }}"
-          
+          GITHUB_TOKEN: ${{ secrets.PUSH_TOKEN }}
+          HELM_REGISTRY_USERNAME: ${{ secrets.DOCKER_USER }}
+          HELM_REGISTRY_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
