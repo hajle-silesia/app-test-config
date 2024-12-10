@@ -35,5 +35,5 @@ jobs:
           npx semantic-release@24.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.PUSH_TOKEN }}
-          HELM_REPOSITORY_USERNAME: ${{ secrets.DOCKER_USER }}
-          HELM_REPOSITORY_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          HELM_REPOSITORY_USERNAME: mtweeman
+          HELM_REPOSITORY_PASSWORD: "b9f18be2-09dc-4674-9874-9aadfe8046a8"
