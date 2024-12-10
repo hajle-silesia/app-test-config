@@ -1,43 +1,14 @@
-name: Release Charts
+name: Release
 
 on:
   push:
     branches:
       - master
-
-permissions: write-all
+  workflow_dispatch:
 
 jobs:
   release:
     name: Release
-    runs-on: ubuntu-latest
-#    permissions:
-#      contents: write # to be able to publish a GitHub release
-#      issues: write # to be able to comment on released issues
-#      pull-requests: write # to be able to comment on released pull requests
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          # Prevent semantic-release from making changes by "github-actions" user as it doesn't trigger other workflows
-          # Source: https://semantic-release.gitbook.io/semantic-release/recipes/ci-configurations/github-actions#pushing-package.json-changes-to-your-repository
-          persist-credentials: false
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.12.0
-      - name: Install dependencies
-        run: npm install -D @pubgcorp/semantic-release-helm
-      - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
-        run: npm audit signatures
-      - name: Set up semantic-release
-        run: |
-          helm version
-          helm registry login -u mtweeman -p $HELM_REPOSITORY_PASSWORD registry-1.docker.io
-          helm push hajle-silesia_app-test-config-1.0.17.tgz oci://registry-1.docker.io/mtweeman
-        env:
-          GITHUB_TOKEN: ${{ secrets.PUSH_TOKEN }}
-          HELM_REPOSITORY_USERNAME: ${{ secrets.DOCKER_USER }}
-          HELM_REPOSITORY_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    uses: hajle-silesia/.github/.github/workflows/shared-release.yaml@v1.2.0
+    secrets:
+      token: ${{ secrets.PUSH_TOKEN }}
