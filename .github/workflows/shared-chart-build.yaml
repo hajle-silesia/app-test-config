@@ -53,9 +53,14 @@ jobs:
           response=$(helm package ${{ inputs.chart-dir }} \
             --version ${{ steps.meta.outputs.version }})
           chart_archive_file=$(basename $"{response}")
+          echo "${chart_archive_file}"
           echo "chart-archive-file=$chart_archive_file" >> $GITHUB_OUTPUT
       - name: Publish
         if: github.event_name != 'pull_request'
         run: |
+          echo PUSTO
+          echo ${{ steps.package.outputs.chart-archive-file }}
+          echo ${{ inputs.docker-hub-registry }}
+          echo PUSTO
           helm push ${{ steps.package.outputs.chart-archive-file }} \
-            oci://${{ inputs.docker-hub-registry }}/${{ inputs.docker-hub-namespace }}
+            oci://${{ inputs.docker-hub-registry }}/mtweeman
