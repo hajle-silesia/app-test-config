@@ -42,10 +42,8 @@ jobs:
           flavor: |
             latest=false
       - run: |
-          echo ${{ steps.meta.outputs.version }}
-          echo ${{ steps.meta.outputs.tags }}
-      - run: |
-          helm package ${{ inputs.chart-dir }}
+          helm package ${{ inputs.chart-dir }} \
+            --version ${{ steps.meta.output.version }}
           helm registry login ${{ inputs.docker-hub-registry }} \
-            -u ${{ secrets.docker-hub-username }} \
-            -p ${{ secrets.docker-hub-token }}
+            --username ${{ secrets.docker-hub-username }} \
+            --password ${{ secrets.docker-hub-token }}
