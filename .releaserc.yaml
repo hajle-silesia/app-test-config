@@ -5,6 +5,6 @@ plugins:
   - '@semantic-release/release-notes-generator'
   - '@semantic-release/github'
   - - 'semantic-release-helm'
-    - registry: "oci://registry-1.docker.io/mtweeman/hajle-silesia_app-test-config"
+    - registry: "registry-1.docker.io/mtweeman/hajle-silesia_app-test-config"
       chartPath: "charts/app-test"
       onlyUpdateVersion: true
