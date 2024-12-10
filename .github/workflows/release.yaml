@@ -32,9 +32,9 @@ jobs:
         run: npm audit signatures
       - name: Set up semantic-release
         run: |
-          helm version
-          echo "${HELM_REPOSITORY_PASSWORD}" | helm registry login registry-1.docker.io/mtweeman -u mtweeman --password-stdin
           npx semantic-release@24.2.0
+          echo "${HELM_REPOSITORY_PASSWORD}" | helm registry login registry-1.docker.io/mtweeman -u mtweeman --password-stdin
+          ls -la
         env:
           GITHUB_TOKEN: ${{ secrets.PUSH_TOKEN }}
           HELM_REPOSITORY_USERNAME: ${{ secrets.DOCKER_USER }}
