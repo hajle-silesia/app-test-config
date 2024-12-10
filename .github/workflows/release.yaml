@@ -35,8 +35,8 @@ jobs:
       - name: Set up semantic-release
         run: |
           helm version
-          helm registry login -u mtweeman -p $HELM_REPOSITORY_PASSWORD registry-1.docker.io/mtweeman
-          helm push hajle-silesia_app-test-config-1.0.17.tgz oci://registry-1.docker.io/mtweeman
+          helm registry login -u mtweeman -p $HELM_REPOSITORY_PASSWORD registry-1.docker.io
+          helm push hajle-silesia_app-test-config-1.0.17.tgz oci://registry-1.docker.io
         env:
           GITHUB_TOKEN: ${{ secrets.PUSH_TOKEN }}
           HELM_REPOSITORY_USERNAME: ${{ secrets.DOCKER_USER }}
