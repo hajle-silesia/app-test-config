@@ -52,7 +52,7 @@ jobs:
         run: |
           response=$(helm package ${{ inputs.chart-dir }} \
             --version ${{ steps.meta.outputs.version }})
-          chart_archive_file=$(basename $"{response}")
+          chart_archive_file=$(basename "${response}")
           echo "${chart_archive_file}"
           echo "chart-archive-file=$chart_archive_file" >> $GITHUB_OUTPUT
       - name: Publish
