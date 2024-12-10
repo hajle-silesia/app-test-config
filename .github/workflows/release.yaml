@@ -32,6 +32,7 @@ jobs:
         run: npm audit signatures
       - name: Set up semantic-release
         run: |
+          printenv
           echo "${HELM_REPOSITORY_PASSWORD}" | helm registry login registry-1.docker.io/mtweeman -u mtweeman --password-stdin
           helm push hajle-silesia_app-test-config-1.0.17.tgz oci://registry-1.docker.io/mtweeman
         env:
