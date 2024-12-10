@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       docker-hub-registry:
-        description: Docker Hub namespace
+        description: Docker Hub registry
         type: string
         required: false
         default: registry-1.docker.io
@@ -31,7 +31,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Docker meta
+      - name: Helm meta
         id: meta
         uses: docker/metadata-action@v5
         with:
@@ -41,9 +41,21 @@ jobs:
             type=semver,pattern={{version}}
           flavor: |
             latest=false
-      - run: |
-          helm package ${{ inputs.chart-dir }} \
-            --version ${{ steps.meta.outputs.version }}
-          helm registry login ${{ inputs.docker-hub-registry }} \
+      - name: Login to Docker Hub
+        if: github.event_name != 'pull_request'
+        run: |
+          echo "${{ secrets.docker-hub-token }}" | helm registry login ${{ inputs.docker-hub-registry }} \
             --username ${{ secrets.docker-hub-username }} \
-            --password ${{ secrets.docker-hub-token }}
+            --password-stdin
+      - name: Package
+        id: package
+        run: |
+          response=$(helm package ${{ inputs.chart-dir }} \
+            --version ${{ steps.meta.outputs.version }})
+          chart_archive_file=$(basename $"{response}")
+          echo "chart-archive-file=$chart_archive_file" >> $GITHUB_OUTPUT
+      - name: Publish
+        if: github.event_name != 'pull_request'
+        run: |
+          helm push ${{ steps.package.outputs.chart-archive-file }} \
+            oci://${{ inputs.docker-hub-registry }}/${{ inputs.docker-hub-namespace }}
