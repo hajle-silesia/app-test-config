@@ -4,7 +4,8 @@ plugins:
   - '@semantic-release/commit-analyzer'
   - '@semantic-release/release-notes-generator'
   - '@semantic-release/github'
-  - - 'semantic-release-helm'
-    - registry: "registry-1.docker.io/mtweeman/hajle-silesia_app-test-config"
-      chartPath: "./charts/app-test"
-      onlyUpdateVersion: true
+  - - '@pubgcorp/semantic-release-helm'
+    - ociRegistry: "registry-1.docker.io/mtweeman"
+      chartDirectory: "./charts/app-test"
+      versionUpdatePolicy: sync
+      appVersionUpdatePolicy: fixed
