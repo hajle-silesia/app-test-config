@@ -6,5 +6,5 @@ plugins:
   - '@semantic-release/github'
   - - 'semantic-release-helm'
     - registry: "registry-1.docker.io/mtweeman/hajle-silesia_app-test-config"
-      chartPath: "charts/app-test"
+      chartPath: "./charts/app-test"
       onlyUpdateVersion: true
