@@ -5,16 +5,14 @@ on:
     branches:
       - master
 
-permissions: write-all
-
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-#    permissions:
-#      contents: write # to be able to publish a GitHub release
-#      issues: write # to be able to comment on released issues
-#      pull-requests: write # to be able to comment on released pull requests
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
 
     steps:
       - name: Checkout
@@ -34,8 +32,7 @@ jobs:
         run: npm audit signatures
       - name: Set up semantic-release
         run: |
-          helm registry login -u mtweeman -p $HELM_REPOSITORY_PASSWORD registry-1.docker.io
-          helm push hajle-silesia_app-test-config-1.0.17.tgz oci://registry-1.docker.io/mtweeman
+          npx semantic-release@24.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.PUSH_TOKEN }}
           HELM_REPOSITORY_USERNAME: ${{ secrets.DOCKER_USER }}
