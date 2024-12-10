@@ -5,7 +5,8 @@ plugins:
   - '@semantic-release/release-notes-generator'
   - '@semantic-release/github'
   - - '@pubgcorp/semantic-release-helm'
-    - ociRegistry: "registry-1.docker.io"
+    - chartRepository: "https://github.com/hajle-silesia/app-test-config"
+      ociRegistry: "registry-1.docker.io"
       chartDirectory: "./charts/app-test"
       versionUpdatePolicy: sync
       appVersionUpdatePolicy: fixed
