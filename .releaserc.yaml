@@ -5,7 +5,7 @@ plugins:
   - '@semantic-release/release-notes-generator'
   - '@semantic-release/github'
   - - '@pubgcorp/semantic-release-helm'
-    - ociRegistry: "registry-1.docker.io/mtweeman"
+    - ociRegistry: "oci://registry-1.docker.io/mtweeman"
       chartDirectory: "./charts/app-test"
       versionUpdatePolicy: sync
       appVersionUpdatePolicy: fixed
