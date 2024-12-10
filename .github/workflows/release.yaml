@@ -35,5 +35,5 @@ jobs:
           npx semantic-release@24.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.PUSH_TOKEN }}
-          REGISTRY_USERNAME: ${{ secrets.DOCKER_USER }}
-          REGISTRY_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          HELM_REGISTRY_USERNAME: ${{ secrets.DOCKER_USER }}
+          HELM_REGISTRY_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
