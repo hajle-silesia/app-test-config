@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: 22.12.0
       - name: Install dependencies
-        run: npm clean-install
+        run: npm install -D @pubgcorp/semantic-release-helm
       - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
         run: npm audit signatures
       - name: Set up semantic-release
