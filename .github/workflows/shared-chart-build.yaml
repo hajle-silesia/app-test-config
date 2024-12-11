@@ -45,7 +45,7 @@ jobs:
         if: github.event_name != 'pull_request'
         run: |
           echo "${{ secrets.docker-hub-token }}" | helm registry login ${{ inputs.docker-hub-registry }} \
-            --username ${{ secrets.docker-hub-username }} \
+            --username ${{ inputs.docker-hub-username }} \
             --password-stdin
       - name: Package
         id: package
