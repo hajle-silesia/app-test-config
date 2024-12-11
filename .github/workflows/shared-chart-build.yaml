@@ -16,7 +16,7 @@ on:
         description: Docker Hub namespace
         type: string
         required: true
-      chart-dir:
+      dir:
         description: Directory containing Chart.yaml
         type: string
         required: true
@@ -53,15 +53,12 @@ jobs:
       - name: Package
         id: package
         run: |
-          response=$(helm package ${{ inputs.chart-dir }} \
+          response=$(helm package ${{ inputs.dir }} \
             --version ${{ steps.meta.outputs.version }})
           chart_archive_file=$(basename "${response}")
           echo "chart-archive-file=$chart_archive_file" >> $GITHUB_OUTPUT
       - name: Publish
         if: github.event_name != 'pull_request'
         run: |
-          echo ${{ github.repository }}
-          echo ${{ steps.package.outputs.chart-archive-file }}
-          echo ${{ inputs.docker-hub-registry }}
           helm push ${{ steps.package.outputs.chart-archive-file }} \
             oci://${{ inputs.docker-hub-registry }}/${{ inputs.docker-hub-namespace }}
