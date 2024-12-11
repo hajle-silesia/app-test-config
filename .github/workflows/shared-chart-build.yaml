@@ -36,7 +36,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ${{ github.repository_owner }}/${{ github.repository }}
+            ${{ inputs.docker-hub-username }}/${{ github.repository }}
           tags: |
             type=semver,pattern={{version}}
           flavor: |
@@ -62,4 +62,4 @@ jobs:
           echo ${{ inputs.docker-hub-registry }}
           echo PUSTO
           helm push ${{ steps.package.outputs.chart-archive-file }} \
-            oci://${{ inputs.docker-hub-registry }}/${{ github.repository_owner }}
+            oci://${{ inputs.docker-hub-registry }}/${{ inputs.docker-hub-username }}
