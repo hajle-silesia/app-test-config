@@ -12,6 +12,10 @@ on:
         description: Docker Hub username
         type: string
         required: true
+      docker-hub-namespace:
+        description: Docker Hub namespace
+        type: string
+        required: true
       chart-dir:
         description: Directory containing Chart.yaml
         type: string
@@ -36,8 +40,6 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: |
-            hajlesilesia/${{ github.repository }}
           tags: |
             type=semver,pattern={{version}}
           flavor: |
@@ -58,9 +60,8 @@ jobs:
       - name: Publish
         if: github.event_name != 'pull_request'
         run: |
-          echo PUSTO
+          echo ${{ github.repository }}
           echo ${{ steps.package.outputs.chart-archive-file }}
           echo ${{ inputs.docker-hub-registry }}
-          echo PUSTO
           helm push ${{ steps.package.outputs.chart-archive-file }} \
-            oci://${{ inputs.docker-hub-registry }}/hajlesilesia
+            oci://${{ inputs.docker-hub-registry }}/${{ inputs.docker-hub-namespace }}
