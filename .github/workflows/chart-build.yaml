@@ -10,7 +10,7 @@ jobs:
     name: Chart build
     uses: hajle-silesia/app-test-config/.github/workflows/shared-chart-build.yaml@master
     with:
+      docker-hub-username: ${{ inputs.DOCKER_HUB_USERNAME }}
       chart-dir: charts/app-test
-      docker-hub-username: ${{ secrets.DOCKER_HUB_USERNAME }}
     secrets:
       docker-hub-token: ${{ secrets.DOCKER_HUB_TOKEN }}
