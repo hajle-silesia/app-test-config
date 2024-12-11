@@ -8,14 +8,14 @@ on:
         type: string
         required: false
         default: registry-1.docker.io
+      docker-hub-username:
+        description: Docker Hub username
+        required: true
       chart-dir:
         description: Directory containing Chart.yaml
         type: string
         required: true
     secrets:
-      docker-hub-username:
-        description: Docker Hub username
-        required: true
       docker-hub-token:
         description: Docker Hub token
         required: true
@@ -36,7 +36,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            mtweeman/hajle-silesia_app-test-config
+            ${{ github.repository_owner }}/${{ github.repository }}
           tags: |
             type=semver,pattern={{version}}
           flavor: |
@@ -53,7 +53,6 @@ jobs:
           response=$(helm package ${{ inputs.chart-dir }} \
             --version ${{ steps.meta.outputs.version }})
           chart_archive_file=$(basename "${response}")
-          echo "${chart_archive_file}"
           echo "chart-archive-file=$chart_archive_file" >> $GITHUB_OUTPUT
       - name: Publish
         if: github.event_name != 'pull_request'
@@ -63,4 +62,4 @@ jobs:
           echo ${{ inputs.docker-hub-registry }}
           echo PUSTO
           helm push ${{ steps.package.outputs.chart-archive-file }} \
-            oci://${{ inputs.docker-hub-registry }}/mtweeman
+            oci://${{ inputs.docker-hub-registry }}/${{ github.repository_owner }}
