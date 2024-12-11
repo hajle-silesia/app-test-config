@@ -3,4 +3,4 @@ name: app-test
 description: A Helm chart for Kubernetes
 type: application
 version: 0.1.1
-appVersion: 1.28.8
+appVersion: ''
