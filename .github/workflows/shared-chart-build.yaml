@@ -10,6 +10,7 @@ on:
         default: registry-1.docker.io
       docker-hub-username:
         description: Docker Hub username
+        type: string
         required: true
       chart-dir:
         description: Directory containing Chart.yaml
