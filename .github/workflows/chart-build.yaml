@@ -12,6 +12,6 @@ jobs:
     with:
       docker-hub-username: ${{ vars.DOCKER_HUB_USERNAME }}
       docker-hub-namespace: ${{ vars.DOCKER_HUB_NAMESPACE }}
-      chart-dir: charts/app-test
+      dir: charts/app-test
     secrets:
       docker-hub-token: ${{ secrets.DOCKER_HUB_TOKEN }}
